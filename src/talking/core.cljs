@@ -12,12 +12,11 @@
                           :message message}))
 (defn- handle-change-messages [e]
     (swap! app-state update-in [:message]
-           (constantly
-            (if (:one? @app-state)
+           #(if (:one? @app-state)
               message
-              message-other)))
+              message-other))
     (swap! app-state update-in [:one?]
-           (constantly (not (:one? @app-state)))))
+           #(not (:one? @app-state))))
 (om/root
  (fn [data owner]
    (reify om/IRender
